@@ -14,7 +14,6 @@ Plug 'benekastah/neomake'
 Plug 'junegunn/vim-easy-align'
 Plug 'Raimondi/delimitMate'
 Plug 'tomtom/tcomment_vim'
-Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-fugitive'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'airblade/vim-gitgutter'
@@ -23,7 +22,6 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-endwise'
 Plug 'yssl/QFEnter'
 Plug 'ConradIrwin/vim-bracketed-paste'
-Plug 'pangloss/vim-javascript'
 Plug 'tpope/vim-repeat'
 Plug 'svermeulen/vim-easyclip'
 Plug 'tpope/vim-surround'
@@ -43,13 +41,16 @@ Plug 'kyazdani42/nvim-tree.lua'
 
 Plug 'ahmedkhalf/project.nvim'
 
+Plug 'phaazon/hop.nvim'
+Plug 'karb94/neoscroll.nvim'
+
 " Execution
 Plug 'vim-test/vim-test'
 Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
 
 " Syntax
-Plug 'herringtondarkholme/yats.vim'
-Plug 'othree/yajs.vim'
+Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate'}
+
 " Code completion
 "
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -271,12 +272,10 @@ nmap <LocalLeader><LocalLeader> <c-^>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""
-" Easy Motion
+" Hop
 """""""""""""""""""""""""""""""""""""""""""""""""""""
-map <LocalLeader> <Plug>(easymotion-prefix)
-" hi EasyMotionTarget ctermfg=39
-" hi EasyMotionTarget2First ctermfg=40
-" hi EasyMotionTarget2Second ctermfg=28
+nmap <LocalLeader>w :HopWord<CR>
+nmap <LocalLeader>b :HopWord<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " TComment
@@ -353,17 +352,6 @@ let g:easy_align_delimiters['\'] = { 'pattern': '\\' }
 nmap <C-f> <plug>EasyClipSwapPasteForward
 xmap d <Plug>MoveMotionXPlug
 nmap dd <Plug>MoveMotionLinePlug
-
-""""""""""""""""""""""""""""""""""""
-" Easy Motion Segments
-""""""""""""""""""""""""""""""""""""
-" let g:EasyMotionSegments_do_mapping = 0
-" nmap <LocalLeader>w  <Plug>(easymotion-segments-LF)
-" vmap <LocalLeader>w  <Plug>(easymotion-segments-LF)
-" omap <LocalLeader>w  <Plug>(easymotion-segments-LF)
-" nmap <LocalLeader>b  <Plug>(easymotion-segments-LB)
-" vmap <LocalLeader>b  <Plug>(easymotion-segments-LB)
-" omap <LocalLeader>b  <Plug>(easymotion-segments-LB)
 
 """"""""""""""""""""""""""""""""""""
 " Neosnippets
@@ -483,6 +471,46 @@ endfunction
 command! StartTest call StartUltest()
 
 nnoremap <LocalLeader>t :StartTest<CR>zR
+""""""""""""""""""""""""""""""""""""
+" coc.nvim
+"
+""""""""""""""""""""""""""""""""""""
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+" inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+"                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
 
 set tabstop=2
 set shiftwidth=2
@@ -502,3 +530,5 @@ let g:coc_global_extentions=[
       \ 'coc-tsserver',
       \ 'coc-solargraph'
       \]
+
+lua require('init')
