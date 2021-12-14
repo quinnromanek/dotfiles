@@ -10,42 +10,54 @@ endfunction
 call plug#begin('~/.config/nvim/bundle')
 
 " Plugins
-Plug 'Shougo/deoplete.nvim'
 Plug 'benekastah/neomake'
-Plug 'rking/ag.vim',            { 'on' : 'Ag' }
 Plug 'junegunn/vim-easy-align'
 Plug 'Raimondi/delimitMate'
-Plug 'scrooloose/nerdtree'
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tomtom/tcomment_vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-fugitive'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'airblade/vim-gitgutter'
-Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-endwise'
 Plug 'yssl/QFEnter'
 Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
 Plug 'tpope/vim-repeat'
 Plug 'svermeulen/vim-easyclip'
 Plug 'tpope/vim-surround'
 Plug 'vim-scripts/taglist.vim'
 Plug 'kien/rainbow_parentheses.vim'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'honza/vim-snippets'
-Plug 'rust-lang/rust.vim'
-Plug 'hashivim/vim-terraform'
 Plug 'prettier/vim-prettier'
-Plug 'posva/vim-vue'
-Plug 'rescript-lang/vim-rescript'
-Plug 'leafgarland/typescript-vim'
+" Search/Navigation
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'kyazdani42/nvim-web-devicons' " for file icons
+Plug 'kyazdani42/nvim-tree.lua'
+
+Plug 'ahmedkhalf/project.nvim'
+
+" Execution
+Plug 'vim-test/vim-test'
+Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
+
+" Syntax
+Plug 'herringtondarkholme/yats.vim'
+Plug 'othree/yajs.vim'
+" Code completion
+"
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" Appearance
+Plug 'mhartington/oceanic-next'
+
+Plug 'ryanoasis/vim-devicons'
 
 " Language specific plugins
 Plug 'tpope/vim-rails',          { 'for' : 'ruby'  }
@@ -62,10 +74,13 @@ filetype plugin indent on    " Required for plugins
 " General Settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " Color settings
-" colorscheme kolor
 set t_Co=256
 syntax on
-set bg=dark
+set background=dark
+set termguicolors
+let g:oceanic_next_terminal_italic = 1
+let g:oceanic_next_terminal_bold = 1
+colorscheme OceanicNext
 
 " Allow folding
 " set foldmethod=syntax
@@ -85,7 +100,7 @@ set lazyredraw                " Don't redraw when don't have to
 set showmode
 set showcmd
 set nocompatible              " Vim, not vi
-set mouse=""
+set mouse=a
 
 " Scrolling
 set sidescrolloff=5           " Keep at least 5 lines left/right
@@ -254,24 +269,6 @@ nmap <LocalLeader>n :bn<CR>
 " File switching
 nmap <LocalLeader><LocalLeader> <c-^>
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""
-" CtrlP
-"""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:ctrlp_working_path_mode = 'ra'
-set wildignore=*.class,*.o,*.info,*.swp
-set tags=tags;/
-nnoremap <LocalLeader>. :CtrlPTag<CR>
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-  \ 'file': '\v\.(exe|so|dll|class)$',
-\ }
-nnoremap <LocalLeader>f :CtrlPBuffer<CR>
-nnoremap <LocalLeader>t :CtrlPBufTag<CR>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""
-" PyMatcher
-"""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " Easy Motion
@@ -287,36 +284,9 @@ map <LocalLeader> <Plug>(easymotion-prefix)
 map <LocalLeader>c :TComment<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""
-" Ag
-"""""""""""""""""""""""""""""""""""""""""""""""""""""
-nnoremap <LocalLeader>a :Ag!<Space>
-
-if executable('ag')
-  set grepprg=ag\ --nogroup\ --nocolor    " Use ag over grep
-  let g:ctrlp_use_caching = 0             " CtrlP doesn't need to cache
-  let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
-endif
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vim-go
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 au Filetype go nnoremap <LocalLeader>v :vsp <CR>:exe "GoDef"<CR>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""
-" NERDTree
-"""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-nnoremap <LocalLeader>m :call NerdTreeToggle()<CR>
-let g:NERDTreeWinSize = 50
-
-" Smart Toggle
-function! NerdTreeToggle()
-  if exists("t:NERDTreeBufName")
-    NERDTreeToggle
-  else
-    NERDTreeFind
-  endif
-endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " DelimitMate
@@ -326,7 +296,7 @@ let g:delimitMate_expand_cr = 1
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " Airline
 """""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:airline_theme = 'bubblegum'
+let g:airline_theme = 'oceanicnext'
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#branch#empty_message = 'local'
 let g:airline#extensions#tmuxline#enabled = 0
@@ -396,14 +366,6 @@ nmap dd <Plug>MoveMotionLinePlug
 " omap <LocalLeader>b  <Plug>(easymotion-segments-LB)
 
 """"""""""""""""""""""""""""""""""""
-" Deoplete
-""""""""""""""""""""""""""""""""""""
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#auto_completion_start_length = 3
-let g:deoplete#ignore_sources = {}
-let g:deoplete#ignore_sources._ = ["neosnippet"]
-
-""""""""""""""""""""""""""""""""""""
 " Neosnippets
 """"""""""""""""""""""""""""""""""""
 function! s:neosnippet_complete()
@@ -437,6 +399,14 @@ let g:neomake_cpp_enable_markers=['clang']
 let g:neomake_cpp_clang_args = ["-std=c++11"]
 autocmd! BufWritePost * Neomake
 
+""""""""""""""""""""""""""""""""""""
+" nvim-tree
+""""""""""""""""""""""""""""""""""""
+
+lua << EOF
+require'nvim-tree'.setup{}
+EOF
+nnoremap <LocalLeader>m :NvimTreeFindFileToggle<CR>
 
 """"""""""""""""""""""""""""""""""""
 " RainbowParentheses
@@ -449,26 +419,78 @@ au Syntax * RainbowParenthesesLoadBraces
 """"""""""""""""""""""""""""""""""""
 " Fugitive.vim
 """"""""""""""""""""""""""""""""""""
-nmap <LocalLeader>gs :Gstatus<CR>
-nmap <LocalLeader>gc :Gcommit<CR>
-nmap <LocalLeader>gb :Git checkout -b<Space>
+nmap <LocalLeader>gs :Telescope git_status<CR>
+nmap <LocalLeader>gc :Git commit<CR>
+nmap <LocalLeader>gb :Telescope git_branches<CR>
+nmap <LocalLeader>gn :Git checkout -b<Space>
 nmap <LocalLeader>gh :Git checkout<Space>
 nmap <LocalLeader>gl :Gblame<CR>
-nmap <LocalLeader>gd :Gdiff<CR>
-nmap <LocalLeader>gr :Gread<CR>
-nmap <LocalLeader>ge :Gedit<CR>
-nmap <LocalLeader>gpu :Gdiff<CR>
-nmap <LocalLeader>e :set expandtab<CR>
+" nmap <LocalLeader>e :set expandtab<CR>
+"
+function! GitPushFunc()
+  let command = "! if [ `git branch | awk '{print $2}'` = 'master' ]; then; echo 'Cowardly refusing to push to master.'; else; git push -q origin `git rev-parse --abbrev-ref HEAD` &; fi"
+  let output = system(command)
+  echo output
+endfunction
+
+command! GitPush call GitPushFunc()
+nmap <LocalLeader>gp :GitPush<CR>
 
 """"""""""""""""""""""""""""""""""""
-" Terraform
+" Projects
 """"""""""""""""""""""""""""""""""""
-let g:terraform_fmt_on_save=1
+
+lua << EOF
+  require("project_nvim").setup {
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
+  }
+EOF
 
 """"""""""""""""""""""""""""""""""""
-" Spotify Search
+" Telescope
 """"""""""""""""""""""""""""""""""""
-nmap <LocalLeader>s :set expandtab<CR>:retab<CR>:w<CR>
+
+lua << EOF
+require('telescope').setup{
+  pickers = {
+    git_status = {
+      mappings = {
+        i = {
+          ["<C-s>"] = "git_staging_toggle"
+        }
+      }
+    },
+    git_branches = {
+      mappings = {
+        i = {
+          ["<C-v>"] = "git_create_branch"
+        }
+      }
+    }
+  }
+
+}
+require('telescope').load_extension('fzf')
+require('telescope').load_extension('projects')
+
+EOF
+nnoremap <C-p> :Telescope find_files<CR>
+nmap <LocalLeader>a :Telescope live_grep<CR>
+
+""""""""""""""""""""""""""""""""""""
+" Ultest
+""""""""""""""""""""""""""""""""""""
+let g:ultest_use_pty = 1
+function StartUltest()
+  execute 'Ultest'
+  execute 'UltestSummaryOpen!'
+endfunction
+
+command! StartTest call StartUltest()
+
+nnoremap <LocalLeader>t :StartTest<CR>zR
 
 set tabstop=2
 set shiftwidth=2
@@ -482,3 +504,9 @@ autocmd BufWritePre *.h,*.cc,*.cpp call Formatonsave()
 
 let g:prettier#autoformat = 0
 autocmd BufWritePre *.js,*.jsx,*.ts,*.mjs,*.ts,*.tsx,*.css,*.scss,*.vue PrettierAsync
+
+" Coc
+let g:coc_global_extentions=[
+      \ 'coc-tsserver',
+      \ 'coc-solargraph'
+      \]
