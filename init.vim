@@ -425,16 +425,8 @@ nmap <LocalLeader>gb :Telescope git_branches<CR>
 nmap <LocalLeader>gn :Git checkout -b<Space>
 nmap <LocalLeader>gh :Git checkout<Space>
 nmap <LocalLeader>gl :Gblame<CR>
-" nmap <LocalLeader>e :set expandtab<CR>
-"
-function! GitPushFunc()
-  let command = "! if [ `git branch | awk '{print $2}'` = 'master' ]; then; echo 'Cowardly refusing to push to master.'; else; git push -q origin `git rev-parse --abbrev-ref HEAD` &; fi"
-  let output = system(command)
-  echo output
-endfunction
-
-command! GitPush call GitPushFunc()
-nmap <LocalLeader>gp :GitPush<CR>
+nmap <LocalLeader>gp :Git push<CR>
+nmap <LocalLeader>gl :Git pull<CR>
 
 """"""""""""""""""""""""""""""""""""
 " Projects
