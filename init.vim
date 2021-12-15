@@ -10,7 +10,6 @@ endfunction
 call plug#begin('~/.config/nvim/bundle')
 
 " Plugins
-Plug 'Shougo/deoplete.nvim'
 Plug 'benekastah/neomake'
 Plug 'rking/ag.vim',            { 'on' : 'Ag' }
 Plug 'junegunn/vim-easy-align'
@@ -480,5 +479,8 @@ function! Formatonsave()
 endfunction
 autocmd BufWritePre *.h,*.cc,*.cpp call Formatonsave()
 
-let g:prettier#autoformat = 0
+let g:prettier#autoformat_config_present = 1
+let g:prettier#autoformat_require_pragma = 1
+let g:prettier#config#single_quote = 'true'
+let g:prettier#config#trailing_comma = 'all'
 autocmd BufWritePre *.js,*.jsx,*.ts,*.mjs,*.ts,*.tsx,*.css,*.scss,*.vue PrettierAsync
