@@ -11,40 +11,70 @@ call plug#begin('~/.config/nvim/bundle')
 
 " Plugins
 Plug 'benekastah/neomake'
-Plug 'rking/ag.vim',            { 'on' : 'Ag' }
 Plug 'junegunn/vim-easy-align'
 Plug 'Raimondi/delimitMate'
-Plug 'scrooloose/nerdtree'
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tomtom/tcomment_vim'
-Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-fugitive'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'airblade/vim-gitgutter'
-Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-endwise'
 Plug 'yssl/QFEnter'
 Plug 'ConradIrwin/vim-bracketed-paste'
-Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
 Plug 'tpope/vim-repeat'
 Plug 'svermeulen/vim-easyclip'
 Plug 'tpope/vim-surround'
 Plug 'vim-scripts/taglist.vim'
 Plug 'kien/rainbow_parentheses.vim'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'honza/vim-snippets'
-Plug 'rust-lang/rust.vim'
-Plug 'hashivim/vim-terraform'
 Plug 'prettier/vim-prettier'
-Plug 'posva/vim-vue'
-Plug 'rescript-lang/vim-rescript'
-Plug 'leafgarland/typescript-vim'
+" Search/Navigation
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'kyazdani42/nvim-web-devicons' " for file icons
+Plug 'kyazdani42/nvim-tree.lua'
+
+Plug 'ahmedkhalf/project.nvim'
+
+Plug 'phaazon/hop.nvim'
+Plug 'junegunn/vim-slash'
+Plug 'karb94/neoscroll.nvim'
+Plug 'simrat39/symbols-outline.nvim'
+
+" Execution
+Plug 'vim-test/vim-test'
+Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
+
+" Syntax
+Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate'}
+Plug 'jose-elias-alvarez/null-ls.nvim'
+
+" Code completion
+"
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+Plug 'neovim/nvim-lspconfig'
+Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
+
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
+
+Plug 'L3MON4D3/LuaSnip'
+Plug 'saadparwaiz1/cmp_luasnip'
+
+
+" Appearance
+Plug 'mhartington/oceanic-next'
+
+Plug 'ryanoasis/vim-devicons'
 
 " Language specific plugins
 Plug 'tpope/vim-rails',          { 'for' : 'ruby'  }
@@ -61,10 +91,13 @@ filetype plugin indent on    " Required for plugins
 " General Settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " Color settings
-" colorscheme kolor
 set t_Co=256
 syntax on
-set bg=dark
+set background=dark
+set termguicolors
+let g:oceanic_next_terminal_italic = 1
+let g:oceanic_next_terminal_bold = 1
+colorscheme OceanicNext
 
 " Allow folding
 " set foldmethod=syntax
@@ -84,7 +117,7 @@ set lazyredraw                " Don't redraw when don't have to
 set showmode
 set showcmd
 set nocompatible              " Vim, not vi
-set mouse=""
+set mouse=a
 
 " Scrolling
 set sidescrolloff=5           " Keep at least 5 lines left/right
@@ -194,7 +227,7 @@ inoremap jk <Esc>
 " nnoremap <LocalLeader>s *
 
 " Update buffer
-nnoremap <LocalLeader>r :checktime<CR>
+nnoremap <LocalLeader>r :SymbolsOutline<CR>
 
 " Toggle list mode
 nmap <LocalLeader>tl :set list!<cr>
@@ -253,32 +286,12 @@ nmap <LocalLeader>n :bn<CR>
 " File switching
 nmap <LocalLeader><LocalLeader> <c-^>
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""
-" CtrlP
-"""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:ctrlp_working_path_mode = 'ra'
-set wildignore=*.class,*.o,*.info,*.swp
-set tags=tags;/
-nnoremap <LocalLeader>. :CtrlPTag<CR>
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-  \ 'file': '\v\.(exe|so|dll|class)$',
-\ }
-nnoremap <LocalLeader>f :CtrlPBuffer<CR>
-nnoremap <LocalLeader>t :CtrlPBufTag<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""
-" PyMatcher
+" Hop
 """""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Easy Motion
-"""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <LocalLeader> <Plug>(easymotion-prefix)
-" hi EasyMotionTarget ctermfg=39
-" hi EasyMotionTarget2First ctermfg=40
-" hi EasyMotionTarget2Second ctermfg=28
+nmap <LocalLeader>w :HopWord<CR>
+nmap <LocalLeader>b :HopWord<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " TComment
@@ -286,36 +299,9 @@ map <LocalLeader> <Plug>(easymotion-prefix)
 map <LocalLeader>c :TComment<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""
-" Ag
-"""""""""""""""""""""""""""""""""""""""""""""""""""""
-nnoremap <LocalLeader>a :Ag!<Space>
-
-if executable('ag')
-  set grepprg=ag\ --nogroup\ --nocolor    " Use ag over grep
-  let g:ctrlp_use_caching = 0             " CtrlP doesn't need to cache
-  let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
-endif
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vim-go
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 au Filetype go nnoremap <LocalLeader>v :vsp <CR>:exe "GoDef"<CR>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""
-" NERDTree
-"""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-nnoremap <LocalLeader>m :call NerdTreeToggle()<CR>
-let g:NERDTreeWinSize = 50
-
-" Smart Toggle
-function! NerdTreeToggle()
-  if exists("t:NERDTreeBufName")
-    NERDTreeToggle
-  else
-    NERDTreeFind
-  endif
-endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " DelimitMate
@@ -325,7 +311,7 @@ let g:delimitMate_expand_cr = 1
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " Airline
 """""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:airline_theme = 'bubblegum'
+let g:airline_theme = 'oceanicnext'
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#branch#empty_message = 'local'
 let g:airline#extensions#tmuxline#enabled = 0
@@ -384,25 +370,6 @@ xmap d <Plug>MoveMotionXPlug
 nmap dd <Plug>MoveMotionLinePlug
 
 """"""""""""""""""""""""""""""""""""
-" Easy Motion Segments
-""""""""""""""""""""""""""""""""""""
-" let g:EasyMotionSegments_do_mapping = 0
-" nmap <LocalLeader>w  <Plug>(easymotion-segments-LF)
-" vmap <LocalLeader>w  <Plug>(easymotion-segments-LF)
-" omap <LocalLeader>w  <Plug>(easymotion-segments-LF)
-" nmap <LocalLeader>b  <Plug>(easymotion-segments-LB)
-" vmap <LocalLeader>b  <Plug>(easymotion-segments-LB)
-" omap <LocalLeader>b  <Plug>(easymotion-segments-LB)
-
-""""""""""""""""""""""""""""""""""""
-" Deoplete
-""""""""""""""""""""""""""""""""""""
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#auto_completion_start_length = 3
-let g:deoplete#ignore_sources = {}
-let g:deoplete#ignore_sources._ = ["neosnippet"]
-
-""""""""""""""""""""""""""""""""""""
 " Neosnippets
 """"""""""""""""""""""""""""""""""""
 function! s:neosnippet_complete()
@@ -436,6 +403,14 @@ let g:neomake_cpp_enable_markers=['clang']
 let g:neomake_cpp_clang_args = ["-std=c++11"]
 autocmd! BufWritePost * Neomake
 
+""""""""""""""""""""""""""""""""""""
+" nvim-tree
+""""""""""""""""""""""""""""""""""""
+
+lua << EOF
+require'nvim-tree'.setup{}
+EOF
+nnoremap <LocalLeader>m :NvimTreeFindFileToggle<CR>
 
 """"""""""""""""""""""""""""""""""""
 " RainbowParentheses
@@ -448,26 +423,110 @@ au Syntax * RainbowParenthesesLoadBraces
 """"""""""""""""""""""""""""""""""""
 " Fugitive.vim
 """"""""""""""""""""""""""""""""""""
-nmap <LocalLeader>gs :Gstatus<CR>
-nmap <LocalLeader>gc :Gcommit<CR>
-nmap <LocalLeader>gb :Git checkout -b<Space>
+nmap <LocalLeader>gs :Telescope git_status<CR>
+nmap <LocalLeader>gc :Git commit<CR>
+nmap <LocalLeader>gb :Telescope git_branches<CR>
+nmap <LocalLeader>gn :Git checkout -b<Space>
 nmap <LocalLeader>gh :Git checkout<Space>
 nmap <LocalLeader>gl :Gblame<CR>
-nmap <LocalLeader>gd :Gdiff<CR>
-nmap <LocalLeader>gr :Gread<CR>
-nmap <LocalLeader>ge :Gedit<CR>
-nmap <LocalLeader>gpu :Gdiff<CR>
-nmap <LocalLeader>e :set expandtab<CR>
+nmap <LocalLeader>gp :Git push<CR>
+nmap <LocalLeader>gl :Git pull<CR>
 
 """"""""""""""""""""""""""""""""""""
-" Terraform
+" Projects
 """"""""""""""""""""""""""""""""""""
-let g:terraform_fmt_on_save=1
+
+lua << EOF
+  require("project_nvim").setup {
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
+  }
+EOF
 
 """"""""""""""""""""""""""""""""""""
-" Spotify Search
+" Telescope
 """"""""""""""""""""""""""""""""""""
-nmap <LocalLeader>s :set expandtab<CR>:retab<CR>:w<CR>
+
+lua << EOF
+require('telescope').setup{
+  pickers = {
+    git_status = {
+      mappings = {
+        i = {
+          ["<C-s>"] = "git_staging_toggle"
+        }
+      }
+    },
+    git_branches = {
+      mappings = {
+        i = {
+          ["<C-v>"] = "git_create_branch"
+        }
+      }
+    }
+  }
+
+}
+require('telescope').load_extension('fzf')
+require('telescope').load_extension('projects')
+
+EOF
+nnoremap <C-p> :Telescope find_files<CR>
+nmap <LocalLeader>a :Telescope live_grep<CR>
+
+""""""""""""""""""""""""""""""""""""
+" Ultest
+""""""""""""""""""""""""""""""""""""
+let g:ultest_use_pty = 1
+function StartUltest()
+  execute 'Ultest'
+  execute 'UltestSummaryOpen!'
+endfunction
+
+command! StartTest call StartUltest()
+
+nnoremap <LocalLeader>t :StartTest<CR>zR
+""""""""""""""""""""""""""""""""""""
+" coc.nvim
+"
+""""""""""""""""""""""""""""""""""""
+" Use <c-space> to trigger completion.
+" if has('nvim')
+"   inoremap <silent><expr> <c-space> coc#refresh()
+" else
+"   inoremap <silent><expr> <c-@> coc#refresh()
+" endif
+"
+" " Make <CR> auto-select the first completion item and notify coc.nvim to
+" " format on enter, <cr> could be remapped by other vim plugin
+" " inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+" "                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+"
+" " Use `[g` and `]g` to navigate diagnostics
+" " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+" nmap <silent> [g <Plug>(coc-diagnostic-prev)
+" nmap <silent> ]g <Plug>(coc-diagnostic-next)
+"
+" " GoTo code navigation.
+" nmap <silent> gd <Plug>(coc-definition)
+" nmap <silent> gy <Plug>(coc-type-definition)
+" nmap <silent> gi <Plug>(coc-implementation)
+" nmap <silent> gr <Plug>(coc-references)
+"
+" " Use K to show documentation in preview window.
+" nnoremap <silent> K :call <SID>show_documentation()<CR>
+"
+" function! s:show_documentation()
+"   if (index(['vim','help'], &filetype) >= 0)
+"     execute 'h '.expand('<cword>')
+"   elseif (coc#rpc#ready())
+"     call CocActionAsync('doHover')
+"   else
+"     execute '!' . &keywordprg . " " . expand('<cword>')
+"   endif
+" endfunction
+
 
 set tabstop=2
 set shiftwidth=2
@@ -484,3 +543,11 @@ let g:prettier#autoformat_require_pragma = 1
 let g:prettier#config#single_quote = 'true'
 let g:prettier#config#trailing_comma = 'all'
 autocmd BufWritePre *.js,*.jsx,*.ts,*.mjs,*.ts,*.tsx,*.css,*.scss,*.vue PrettierAsync
+
+" Coc
+let g:coc_global_extentions=[
+      \ 'coc-tsserver',
+      \ 'coc-solargraph'
+      \]
+
+lua require('init')

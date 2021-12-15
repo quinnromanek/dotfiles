@@ -1,0 +1,8 @@
+require('plugins.lspconfig')
+require('plugins.null-ls')
+require('plugins.luasnip')
+require('plugins.nvim-cmp')
+require('plugins.hop')
+require('plugins.treesitter')
+require('plugins.neoscroll')
+require('plugins.symbols_outline')
