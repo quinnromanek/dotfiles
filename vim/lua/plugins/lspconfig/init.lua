@@ -96,3 +96,12 @@ lspconfig.tsserver.setup{
     end,
     capabilities = capabilities,
 }
+
+lspconfig.solargraph.setup{
+  on_attach = global_on_attach,
+  capabilities = capabilities,
+  flags = {
+    debounce_text_changes = 150,
+  }
+
+}

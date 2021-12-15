@@ -44,6 +44,7 @@ Plug 'ahmedkhalf/project.nvim'
 Plug 'phaazon/hop.nvim'
 Plug 'junegunn/vim-slash'
 Plug 'karb94/neoscroll.nvim'
+Plug 'simrat39/symbols-outline.nvim'
 
 " Execution
 Plug 'vim-test/vim-test'
@@ -226,7 +227,7 @@ inoremap jk <Esc>
 " nnoremap <LocalLeader>s *
 
 " Update buffer
-nnoremap <LocalLeader>r :checktime<CR>
+nnoremap <LocalLeader>r :SymbolsOutline<CR>
 
 " Toggle list mode
 nmap <LocalLeader>tl :set list!<cr>
