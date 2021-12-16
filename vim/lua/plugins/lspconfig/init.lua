@@ -128,7 +128,8 @@ end
 
 -- Server to be automatically installed
 local installed_servers = {
-  pyright = default_setup
+  pyright = default_setup,
+  volar = default_setup,
 }
 
 for server, setup in pairs(installed_servers) do

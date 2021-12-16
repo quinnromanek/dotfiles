@@ -11,8 +11,8 @@ require('nvim-treesitter.configs').setup {
     "rust",
     "python",
     "vim",
-    "yaml"
-
+    "yaml",
+    "vue"
   },
   highlight = {
     enable = true,
