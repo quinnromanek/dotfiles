@@ -54,8 +54,6 @@ Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate'}
 Plug 'jose-elias-alvarez/null-ls.nvim'
 
 " Code completion
-"
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'neovim/nvim-lspconfig'
 Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
@@ -71,6 +69,8 @@ Plug 'saadparwaiz1/cmp_luasnip'
 
 Plug 'williamboman/nvim-lsp-installer'
 Plug 'ray-x/lsp_signature.nvim'
+Plug 'weilbith/nvim-code-action-menu'
+Plug 'kosayoda/nvim-lightbulb'
 
 
 " Appearance
@@ -205,6 +205,7 @@ endif
 
 " Unhighlight
 nmap <LocalLeader>x :cclose<CR>
+nmap <LocalLeader>e :CodeActionMenu<CR>
 
 " Spelling
 if v:version >= 700
@@ -273,7 +274,7 @@ endif
 nmap <LocalLeader>g :so ~/.config/init.vim<CR>
 
 " Search directory for word under cursor
-nmap S :Ag <C-R><C-W><CR>
+nmap S :Telescope lsp_references<CR>
 nmap <LocalLeader>D :Ag "def (self\.)?<C-R><C-W>"<CR>
 
 " Allow searching from visual mode
@@ -283,7 +284,7 @@ vnoremap // y/<C-R>"<CR>
 nmap <LocalLeader>d :bd<CR>
 
 " Cycle through buffers
-nmap <LocalLeader>n :bn<CR>
+nmap <LocalLeader>n :Telescope buffers<CR>
 
 " File switching
 nmap <LocalLeader><LocalLeader> <c-^>
@@ -300,10 +301,6 @@ nmap <LocalLeader>b :HopWord<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 map <LocalLeader>c :TComment<CR>
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Vim-go
-"""""""""""""""""""""""""""""""""""""""""""""""""""""
-au Filetype go nnoremap <LocalLeader>v :vsp <CR>:exe "GoDef"<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " DelimitMate
@@ -545,7 +542,8 @@ let g:prettier#autoformat_require_pragma = 1
 let g:prettier#config#single_quote = 'true'
 let g:prettier#config#trailing_comma = 'all'
 " autocmd BufWritePre *.js,*.jsx,*.ts,*.mjs,*.ts,*.tsx,*.css,*.scss,*.vue PrettierAsync
-autocmd BufWritePre * lua vim.lsp.buf.formatting_sync(nil, 1000)
+autocmd BufWritePre * lua vim.lsp.buf.formatting_seq_sync(nil, 1000)
+autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
 
 " Coc
 let g:coc_global_extentions=[
