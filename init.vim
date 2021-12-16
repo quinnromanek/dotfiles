@@ -6,7 +6,6 @@ function! BuildYCM(info)
     !./install.sh --clang-completer --gocode-completer
   endif
 endfunction
-
 call plug#begin('~/.config/nvim/bundle')
 
 " Plugins
@@ -69,6 +68,9 @@ Plug 'hrsh7th/nvim-cmp'
 
 Plug 'L3MON4D3/LuaSnip'
 Plug 'saadparwaiz1/cmp_luasnip'
+
+Plug 'williamboman/nvim-lsp-installer'
+Plug 'ray-x/lsp_signature.nvim'
 
 
 " Appearance
@@ -542,7 +544,8 @@ let g:prettier#autoformat_config_present = 1
 let g:prettier#autoformat_require_pragma = 1
 let g:prettier#config#single_quote = 'true'
 let g:prettier#config#trailing_comma = 'all'
-autocmd BufWritePre *.js,*.jsx,*.ts,*.mjs,*.ts,*.tsx,*.css,*.scss,*.vue PrettierAsync
+" autocmd BufWritePre *.js,*.jsx,*.ts,*.mjs,*.ts,*.tsx,*.css,*.scss,*.vue PrettierAsync
+autocmd BufWritePre * lua vim.lsp.buf.formatting_sync(nil, 1000)
 
 " Coc
 let g:coc_global_extentions=[

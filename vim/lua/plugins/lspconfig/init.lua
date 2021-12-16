@@ -12,6 +12,8 @@ local global_on_attach = function(client, bufnr)
   -- Mappings.
   local opts = { noremap=true, silent=true }
 
+  require("lsp_signature").on_attach()
+
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
   buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
@@ -97,11 +99,39 @@ lspconfig.tsserver.setup{
     capabilities = capabilities,
 }
 
-lspconfig.solargraph.setup{
-  on_attach = global_on_attach,
-  capabilities = capabilities,
-  flags = {
-    debounce_text_changes = 150,
+local default_setup = function(server)
+  server:setup{
+    on_attach = global_on_attach,
+    capabilities = capabilities,
+    flags = {
+      debounce_text_changes = 150,
+    }
   }
+end
 
+default_setup(lspconfig.solargraph)
+
+require('nvim-lsp-installer')
+local lsp_installer_servers = require('nvim-lsp-installer.servers')
+
+
+local ensure_server_downloaded = function(server, setup)
+  local server_available, requested_server = lsp_installer_servers.get_server(server)
+  if server_available then
+      requested_server:on_ready(setup)
+      if not requested_server:is_installed() then
+          -- Queue the server to be installed
+          requested_server:install()
+      end
+  end
+end
+
+-- Server to be automatically installed
+local installed_servers = {
+  pyright = default_setup
 }
+
+for server, setup in pairs(installed_servers) do
+  ensure_server_downloaded(server, setup)
+end
+
