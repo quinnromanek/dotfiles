@@ -44,6 +44,7 @@ Plug 'phaazon/hop.nvim'
 Plug 'junegunn/vim-slash'
 Plug 'karb94/neoscroll.nvim'
 Plug 'simrat39/symbols-outline.nvim'
+Plug 'rmagatti/goto-preview'
 
 " Execution
 Plug 'vim-test/vim-test'
@@ -544,6 +545,13 @@ let g:prettier#config#trailing_comma = 'all'
 " autocmd BufWritePre *.js,*.jsx,*.ts,*.mjs,*.ts,*.tsx,*.css,*.scss,*.vue PrettierAsync
 autocmd BufWritePre * lua vim.lsp.buf.formatting_seq_sync(nil, 1000)
 autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
+
+" trigger `autoread` when files changes on disk
+set autoread
+autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
+" notification after file change
+autocmd FileChangedShellPost *
+  \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 
 " Coc
 let g:coc_global_extentions=[

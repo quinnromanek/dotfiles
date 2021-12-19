@@ -111,6 +111,15 @@ local default_setup = function(server)
   }
 end
 
+lspconfig.solargraph.setup{
+    on_attach = global_on_attach,
+    capabilities = capabilities,
+    flags = {
+      debounce_text_changes = 150,
+    }
+}
+
+
 require('nvim-lsp-installer')
 local lsp_installer_servers = require('nvim-lsp-installer.servers')
 
@@ -130,8 +139,8 @@ end
 local installed_servers = {
   pyright = default_setup,
   volar = default_setup,
-  tsserver = ts_setup,
-  solargraph = default_setup
+  tsserver = ts_setup
+  -- solargraph = default_setup
 }
 
 for server, setup in pairs(installed_servers) do
