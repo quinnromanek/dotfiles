@@ -4,6 +4,7 @@ require('nvim-treesitter.configs').setup {
     "bash",
     "go",
     "json",
+    "elm",
     "javascript",
     "typescript",
     "ruby",

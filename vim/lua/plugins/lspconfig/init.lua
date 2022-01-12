@@ -138,8 +138,9 @@ end
 -- Server to be automatically installed
 local installed_servers = {
   pyright = default_setup,
-  volar = default_setup,
-  tsserver = ts_setup
+  vuels = default_setup,
+  tsserver = ts_setup,
+  elmls = default_setup,
   -- solargraph = default_setup
 }
 
