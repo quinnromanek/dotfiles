@@ -8,14 +8,15 @@ function! BuildYCM(info)
 endfunction
 call plug#begin('~/.config/nvim/bundle')
 
+Plug 'nvim-lua/plenary.nvim'
 " Plugins
 Plug 'benekastah/neomake'
 Plug 'junegunn/vim-easy-align'
 Plug 'Raimondi/delimitMate'
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-fugitive'
+Plug 'lewis6991/gitsigns.nvim'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'airblade/vim-gitgutter'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-endwise'
@@ -32,7 +33,6 @@ Plug 'honza/vim-snippets'
 Plug 'prettier/vim-prettier'
 " Search/Navigation
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
@@ -428,7 +428,7 @@ nmap <LocalLeader>gc :Git commit<CR>
 nmap <LocalLeader>gb :Telescope git_branches<CR>
 nmap <LocalLeader>gn :Git checkout -b<Space>
 nmap <LocalLeader>gh :Git checkout<Space>
-nmap <LocalLeader>gl :Gblame<CR>
+nmap <LocalLeader>gv :Gitsigns toggle_current_line_blame<CR>
 nmap <LocalLeader>gp :Git push<CR>
 nmap <LocalLeader>gl :Git pull<CR>
 
