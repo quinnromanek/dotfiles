@@ -26,7 +26,6 @@ Plug 'tpope/vim-repeat'
 Plug 'svermeulen/vim-easyclip'
 Plug 'tpope/vim-surround'
 Plug 'vim-scripts/taglist.vim'
-Plug 'kien/rainbow_parentheses.vim'
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'honza/vim-snippets'
@@ -76,8 +75,12 @@ Plug 'kosayoda/nvim-lightbulb'
 
 " Appearance
 Plug 'mhartington/oceanic-next'
+Plug 'frazrepo/vim-rainbow'
 
 Plug 'ryanoasis/vim-devicons'
+
+" External
+Plug 'pwntester/octo.nvim'
 
 " Language specific plugins
 Plug 'tpope/vim-rails',          { 'for' : 'ruby'  }
@@ -407,18 +410,15 @@ autocmd! BufWritePost * Neomake
 " nvim-tree
 """"""""""""""""""""""""""""""""""""
 
-lua << EOF
-require'nvim-tree'.setup{}
-EOF
-nnoremap <LocalLeader>m :NvimTreeFindFileToggle<CR>
 
 """"""""""""""""""""""""""""""""""""
 " RainbowParentheses
 """"""""""""""""""""""""""""""""""""
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
+" au VimEnter * RainbowParenthesesToggle
+" au Syntax * RainbowParenthesesLoadRound
+" au Syntax * RainbowParenthesesLoadSquare
+" au Syntax * RainbowParenthesesLoadBraces
+let g:rainbow_active = 1
 
 """"""""""""""""""""""""""""""""""""
 " Fugitive.vim
@@ -429,7 +429,7 @@ nmap <LocalLeader>gb :Telescope git_branches<CR>
 nmap <LocalLeader>gn :Git checkout -b<Space>
 nmap <LocalLeader>gh :Git checkout<Space>
 nmap <LocalLeader>gv :Gitsigns toggle_current_line_blame<CR>
-nmap <LocalLeader>gp :Git push<CR>
+nmap <LocalLeader>gp :Git -c push.default=current push<CR>
 nmap <LocalLeader>gl :Git pull<CR>
 
 """"""""""""""""""""""""""""""""""""
@@ -448,30 +448,6 @@ EOF
 " Telescope
 """"""""""""""""""""""""""""""""""""
 
-lua << EOF
-require('telescope').setup{
-  pickers = {
-    git_status = {
-      mappings = {
-        i = {
-          ["<C-s>"] = "git_staging_toggle"
-        }
-      }
-    },
-    git_branches = {
-      mappings = {
-        i = {
-          ["<C-v>"] = "git_create_branch"
-        }
-      }
-    }
-  }
-
-}
-require('telescope').load_extension('fzf')
-require('telescope').load_extension('projects')
-
-EOF
 nnoremap <C-p> :Telescope find_files<CR>
 nmap <LocalLeader>a :Telescope live_grep<CR>
 
@@ -560,3 +536,5 @@ let g:coc_global_extentions=[
       \]
 
 lua require('init')
+
+nnoremap <LocalLeader>m :NvimTreeFindFileToggle<CR>

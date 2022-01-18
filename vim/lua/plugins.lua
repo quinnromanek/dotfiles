@@ -9,3 +9,8 @@ require('plugins.symbols_outline')
 require('plugins.nvim-lsp-installer')
 require('plugins.goto-preview')
 require('plugins.gitsigns')
+require('plugins.nvim-tree')
+require('plugins.telescope')
+
+-- One liners - move to their own file if we ever add config
+require('octo').setup()
