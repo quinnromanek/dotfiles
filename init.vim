@@ -75,7 +75,6 @@ Plug 'kosayoda/nvim-lightbulb'
 
 " Appearance
 Plug 'mhartington/oceanic-next'
-Plug 'frazrepo/vim-rainbow'
 
 Plug 'ryanoasis/vim-devicons'
 
@@ -418,7 +417,6 @@ autocmd! BufWritePost * Neomake
 " au Syntax * RainbowParenthesesLoadRound
 " au Syntax * RainbowParenthesesLoadSquare
 " au Syntax * RainbowParenthesesLoadBraces
-let g:rainbow_active = 1
 
 """"""""""""""""""""""""""""""""""""
 " Fugitive.vim
