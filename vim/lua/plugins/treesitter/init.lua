@@ -14,7 +14,8 @@ require('nvim-treesitter.configs').setup {
     "prisma",
     "vim",
     "yaml",
-    "vue"
+    "vue",
+    "lua"
   },
   highlight = {
     enable = true,

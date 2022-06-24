@@ -53,11 +53,17 @@ Plug 'filipdutescu/renamer.nvim', { 'branch': 'master' }
 
 " Execution
 Plug 'vim-test/vim-test'
-Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
 
 " Syntax
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate'}
 Plug 'jose-elias-alvarez/null-ls.nvim'
+
+" Testing
+Plug 'antoinemadec/FixCursorHold.nvim'
+Plug 'haydenmeade/neotest-jest'
+Plug 'olimorris/neotest-rspec'
+Plug 'nvim-neotest/neotest-vim-test'
+Plug 'nvim-neotest/neotest'
 
 " Code completion
 
@@ -460,18 +466,6 @@ EOF
 nnoremap <C-p> :Telescope find_files<CR>
 nmap <LocalLeader>a :Telescope live_grep<CR>
 
-""""""""""""""""""""""""""""""""""""
-" Ultest
-""""""""""""""""""""""""""""""""""""
-let g:ultest_use_pty = 1
-function StartUltest()
-  execute 'Ultest'
-  execute 'UltestSummaryOpen!'
-endfunction
-
-command! StartTest call StartUltest()
-
-nnoremap <LocalLeader>t :StartTest<CR>zR
 """"""""""""""""""""""""""""""""""""
 " coc.nvim
 "
