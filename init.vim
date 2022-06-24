@@ -36,14 +36,20 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
 Plug 'kyazdani42/nvim-tree.lua'
+Plug 'romgrk/barbar.nvim'
 
 Plug 'ahmedkhalf/project.nvim'
 
 Plug 'phaazon/hop.nvim'
 Plug 'junegunn/vim-slash'
 Plug 'karb94/neoscroll.nvim'
-Plug 'simrat39/symbols-outline.nvim'
 Plug 'rmagatti/goto-preview'
+
+Plug 'petertriho/nvim-scrollbar'
+Plug 'glepnir/dashboard-nvim'
+Plug 'filipdutescu/renamer.nvim', { 'branch': 'master' }
+
+
 
 " Execution
 Plug 'vim-test/vim-test'
@@ -232,8 +238,6 @@ inoremap jk <Esc>
 " Search word under cursor
 " nnoremap <LocalLeader>s *
 
-" Update buffer
-nnoremap <LocalLeader>r :SymbolsOutline<CR>
 
 " Toggle list mode
 nmap <LocalLeader>tl :set list!<cr>
@@ -297,7 +301,13 @@ nmap <LocalLeader><LocalLeader> <c-^>
 " Hop
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 nmap <LocalLeader>w :HopWord<CR>
-nmap <LocalLeader>b :HopWord<CR>
+" nmap <LocalLeader>b :HopWord<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Dashboard
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:dashboard_default_executive ='telescope'
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " TComment
@@ -318,11 +328,12 @@ let g:airline_powerline_fonts = 1
 let g:airline#extensions#branch#empty_message = 'local'
 let g:airline#extensions#tmuxline#enabled = 0
 
+
 " Tabline configuration
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#buffer_nr_show = 1
-let g:airline#extensions#tabline#fnamemod = ':t'
-let g:airline#extensions#tabline#show_tab_type = 0
+" let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tabline#buffer_nr_show = 1
+" let g:airline#extensions#tabline#fnamemod = ':t'
+" let g:airline#extensions#tabline#show_tab_type = 0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " Tmuxline

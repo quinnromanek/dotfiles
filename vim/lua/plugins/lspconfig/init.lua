@@ -141,6 +141,8 @@ local installed_servers = {
   vuels = default_setup,
   tsserver = ts_setup,
   elmls = default_setup,
+  prismals = default_setup,
+  -- sorbet = default_setup,
   -- solargraph = default_setup
 }
 
