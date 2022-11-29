@@ -85,13 +85,16 @@ Plug 'weilbith/nvim-code-action-menu'
 Plug 'kosayoda/nvim-lightbulb'
 
 
+
 " Appearance
 Plug 'mhartington/oceanic-next'
 
 Plug 'ryanoasis/vim-devicons'
 
-" External
+" External - Github
 Plug 'pwntester/octo.nvim'
+Plug 'ldelossa/litee.nvim'
+Plug 'ldelossa/gh.nvim'
 
 " Language specific plugins
 Plug 'tpope/vim-rails',          { 'for' : 'ruby'  }

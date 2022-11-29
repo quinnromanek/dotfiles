@@ -11,6 +11,7 @@ require('plugins.goto-preview')
 require('plugins.gitsigns')
 require('plugins.nvim-tree')
 require('plugins.telescope')
+require('plugins.gh')
 
 local map = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
