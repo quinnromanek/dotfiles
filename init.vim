@@ -34,6 +34,7 @@ Plug 'prettier/vim-prettier'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'elianiva/telescope-npm.nvim'
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'romgrk/barbar.nvim'
@@ -48,6 +49,7 @@ Plug 'rmagatti/goto-preview'
 Plug 'petertriho/nvim-scrollbar'
 Plug 'glepnir/dashboard-nvim'
 Plug 'filipdutescu/renamer.nvim', { 'branch': 'master' }
+Plug 'folke/which-key.nvim'
 
 
 
@@ -84,6 +86,7 @@ Plug 'ray-x/lsp_signature.nvim'
 Plug 'weilbith/nvim-code-action-menu'
 Plug 'kosayoda/nvim-lightbulb'
 
+Plug 'github/copilot.vim'
 
 
 " Appearance
@@ -95,6 +98,9 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'pwntester/octo.nvim'
 Plug 'ldelossa/litee.nvim'
 Plug 'ldelossa/gh.nvim'
+
+" Nx
+Plug 'Equilibris/nx.nvim'
 
 " Language specific plugins
 Plug 'tpope/vim-rails',          { 'for' : 'ruby'  }
@@ -222,7 +228,6 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Unhighlight
-nmap <LocalLeader>x :cclose<CR>
 nmap <LocalLeader>e :CodeActionMenu<CR>
 
 " Spelling
@@ -287,7 +292,7 @@ if has('nvim')
 endif
 
 " Source vimrc
-nmap <LocalLeader>g :so ~/.config/init.vim<CR>
+" nmap <LocalLeader>g :so ~/.config/init.vim<CR>
 
 " Search directory for word under cursor
 nmap S :Telescope lsp_references<CR>
@@ -296,11 +301,9 @@ nmap <LocalLeader>D :Ag "def (self\.)?<C-R><C-W>"<CR>
 " Allow searching from visual mode
 vnoremap // y/<C-R>"<CR>
 
-" Delete current buffer
-nmap <LocalLeader>d :bd<CR>
 
 " Cycle through buffers
-nmap <LocalLeader>n :Telescope buffers<CR>
+" nmap <LocalLeader>n :Telescope buffers<CR>
 
 " File switching
 nmap <LocalLeader><LocalLeader> <c-^>
@@ -423,7 +426,7 @@ let g:neosnippet#snippets_directory = '~/.config/nvim/bundle/vim-snippets/snippe
 " let g:neomake_ruby_enabled_makers = ['rubocop']
 let g:neomake_cpp_enable_markers=['clang']
 let g:neomake_cpp_clang_args = ["-std=c++11"]
-autocmd! BufWritePost * Neomake
+" autocmd! BufWritePost * Neomake
 
 """"""""""""""""""""""""""""""""""""
 " nvim-tree
@@ -441,11 +444,11 @@ autocmd! BufWritePost * Neomake
 """"""""""""""""""""""""""""""""""""
 " Fugitive.vim
 """"""""""""""""""""""""""""""""""""
-nmap <LocalLeader>gs :Telescope git_status<CR>
-nmap <LocalLeader>gc :Git commit<CR>
+" nmap <LocalLeader>gs :Telescope git_status<CR>
+" nmap <LocalLeader>gc :Git commit<CR>
 nmap <LocalLeader>gb :Telescope git_branches<CR>
 nmap <LocalLeader>gn :Git checkout -b<Space>
-nmap <LocalLeader>gh :Git checkout<Space>
+" nmap <LocalLeader>gh :Git checkout<Space>
 nmap <LocalLeader>gv :Gitsigns toggle_current_line_blame<CR>
 nmap <LocalLeader>gp :Git -c push.default=current push<CR>
 nmap <LocalLeader>gl :Git pull<CR>
@@ -525,7 +528,7 @@ let g:prettier#autoformat_require_pragma = 1
 let g:prettier#config#single_quote = 'true'
 let g:prettier#config#trailing_comma = 'all'
 " autocmd BufWritePre *.js,*.jsx,*.ts,*.mjs,*.ts,*.tsx,*.css,*.scss,*.vue PrettierAsync
-autocmd BufWritePre * lua vim.lsp.buf.formatting_seq_sync(nil, 1000)
+autocmd BufWritePre * lua vim.lsp.buf.format()
 autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
 
 " trigger `autoread` when files changes on disk

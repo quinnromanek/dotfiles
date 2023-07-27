@@ -12,6 +12,7 @@ require('plugins.gitsigns')
 require('plugins.nvim-tree')
 require('plugins.telescope')
 require('plugins.gh')
+require('plugins.which-key')
 
 local map = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
@@ -27,3 +28,5 @@ map('n', '<LocalLeader>b', ':BufferPick<CR>', opts)
 -- Rename
 require('renamer').setup()
 map('n', '<LocalLeader>r', '<cmd>lua require("renamer").rename()<cr>', opts)
+
+require('nx').setup()

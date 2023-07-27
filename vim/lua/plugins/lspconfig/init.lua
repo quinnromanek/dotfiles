@@ -142,6 +142,7 @@ local installed_servers = {
   tsserver = ts_setup,
   elmls = default_setup,
   prismals = default_setup,
+  yamlls = default_setup,
   -- sorbet = default_setup,
 }
 

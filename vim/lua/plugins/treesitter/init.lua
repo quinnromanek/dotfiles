@@ -12,6 +12,7 @@ require('nvim-treesitter.configs').setup {
     "rust",
     "python",
     "prisma",
+    "sql",
     "vim",
     "yaml",
     "vue",
