@@ -1,6 +1,7 @@
 require('plugins.lspconfig')
-require('plugins.null-ls')
+require('plugins.formatter-nvim')
 require('plugins.luasnip')
+require('plugins.copilot')
 require('plugins.nvim-cmp')
 require('plugins.hop')
 require('plugins.treesitter')
@@ -30,3 +31,5 @@ require('renamer').setup()
 map('n', '<LocalLeader>r', '<cmd>lua require("renamer").rename()<cr>', opts)
 
 require('nx').setup()
+
+require('monorepo').setup()

@@ -50,8 +50,17 @@ wk.register({
       }
     },
     f = {
-      "<cmd>Telescope buffers<cr>",
-      "Buffers"
+      name = "Find",
+      b = {
+        "<cmd>Telescope buffers<cr>",
+        "Buffers"
+      },
+      p = {
+        function()
+          require('telescope').extensions.monorepo.monorepo()
+        end,
+        "Monorepo Projects"
+      }
     },
     x = {
       "<cmd>bd<cr>",

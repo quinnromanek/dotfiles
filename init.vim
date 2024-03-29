@@ -29,7 +29,6 @@ Plug 'vim-scripts/taglist.vim'
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'honza/vim-snippets'
-Plug 'prettier/vim-prettier'
 " Search/Navigation
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'nvim-telescope/telescope.nvim'
@@ -38,6 +37,7 @@ Plug 'elianiva/telescope-npm.nvim'
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'romgrk/barbar.nvim'
+Plug 'imNel/monorepo.nvim'
 
 Plug 'ahmedkhalf/project.nvim'
 
@@ -51,7 +51,8 @@ Plug 'glepnir/dashboard-nvim'
 Plug 'filipdutescu/renamer.nvim', { 'branch': 'master' }
 Plug 'folke/which-key.nvim'
 
-
+" Formatting
+Plug 'mhartington/formatter.nvim'
 
 " Execution
 Plug 'vim-test/vim-test'
@@ -64,6 +65,7 @@ Plug 'jose-elias-alvarez/null-ls.nvim'
 Plug 'antoinemadec/FixCursorHold.nvim'
 Plug 'haydenmeade/neotest-jest'
 Plug 'olimorris/neotest-rspec'
+Plug 'marilari88/neotest-vitest'
 Plug 'nvim-neotest/neotest-vim-test'
 Plug 'nvim-neotest/neotest'
 
@@ -86,7 +88,8 @@ Plug 'ray-x/lsp_signature.nvim'
 Plug 'weilbith/nvim-code-action-menu'
 Plug 'kosayoda/nvim-lightbulb'
 
-Plug 'github/copilot.vim'
+Plug 'zbirenbaum/copilot.lua'
+Plug 'zbirenbaum/copilot-cmp'
 
 
 " Appearance
@@ -459,6 +462,7 @@ nmap <LocalLeader>gl :Git pull<CR>
 
 lua << EOF
   require("project_nvim").setup {
+    manual_mode = true
     -- your configuration comes here
     -- or leave it empty to use the default settings
     -- refer to the configuration section below
@@ -517,18 +521,11 @@ set tabstop=2
 set shiftwidth=2
 set expandtab
 
-function! Formatonsave()
-  let l:formatdiff = 1
-  pyf /usr/share/vim/addons/syntax/clang-format.py
-endfunction
-autocmd BufWritePre *.h,*.cc,*.cpp call Formatonsave()
+augroup FormatAutogroup
+  autocmd!
+  autocmd BufWritePost * FormatWrite
+augroup END
 
-let g:prettier#autoformat_config_present = 1
-let g:prettier#autoformat_require_pragma = 1
-let g:prettier#config#single_quote = 'true'
-let g:prettier#config#trailing_comma = 'all'
-" autocmd BufWritePre *.js,*.jsx,*.ts,*.mjs,*.ts,*.tsx,*.css,*.scss,*.vue PrettierAsync
-autocmd BufWritePre * lua vim.lsp.buf.format()
 autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
 
 " trigger `autoread` when files changes on disk
