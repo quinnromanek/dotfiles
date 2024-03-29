@@ -13,10 +13,9 @@ neotest.setup({
 
         if string.match(path, "/Users/quinn.romanek/code/cs") then
           if vim.fn.getcwd() == "/Users/quinn.romanek/code/cs" then
-            local package_path = vitest_util.find_node_modules_ancestor(path)
+            local package_path = vitest_util.find_package_json_ancestor(path)
             local package = string.gsub(package_path, "/Users/quinn.romanek/code/cs/", "")
             local command = "npm run -w " .. package .. " test -- run " .. path
-            print(command)
             return command
           else
             return "npm run test -- "

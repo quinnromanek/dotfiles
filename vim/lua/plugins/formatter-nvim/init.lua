@@ -12,6 +12,9 @@ require("formatter").setup {
     javascriptreact = {
       require("formatter.filetypes.javascriptreact").prettier
     },
+    json = {
+      require("formatter.filetypes.json").prettier
+    },
     -- Use the special "*" filetype for defining formatter configurations on
     -- any filetype
     ["*"] = {
