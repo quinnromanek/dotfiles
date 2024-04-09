@@ -119,7 +119,6 @@ lspconfig.solargraph.setup{
     }
 }
 
-
 require('nvim-lsp-installer')
 local lsp_installer_servers = require('nvim-lsp-installer.servers')
 
@@ -142,10 +141,13 @@ local installed_servers = {
   tsserver = ts_setup,
   elmls = default_setup,
   prismals = default_setup,
-  yamlls = default_setup,
+  -- yamlls = default_setup,
   -- sorbet = default_setup,
 }
 
 for server, setup in pairs(installed_servers) do
   ensure_server_downloaded(server, setup)
 end
+
+-- Installed by mason
+default_setup(lspconfig.helm_ls)

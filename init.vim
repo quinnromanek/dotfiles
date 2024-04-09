@@ -29,6 +29,13 @@ Plug 'vim-scripts/taglist.vim'
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'honza/vim-snippets'
+Plug 'towolf/vim-helm'
+
+" Mason -- package management
+Plug 'williamboman/mason.nvim'
+Plug 'WhoIsSethDaniel/mason-tool-installer.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
+
 " Search/Navigation
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'nvim-telescope/telescope.nvim'
@@ -51,8 +58,9 @@ Plug 'glepnir/dashboard-nvim'
 Plug 'filipdutescu/renamer.nvim', { 'branch': 'master' }
 Plug 'folke/which-key.nvim'
 
-" Formatting
+" Formatting / Linting
 Plug 'mhartington/formatter.nvim'
+Plug 'mfussenegger/nvim-lint'
 
 " Execution
 Plug 'vim-test/vim-test'

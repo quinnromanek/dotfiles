@@ -1,5 +1,7 @@
+require('plugins.mason')
 require('plugins.lspconfig')
 require('plugins.formatter-nvim')
+require('plugins.nvim-lint')
 require('plugins.luasnip')
 require('plugins.copilot')
 require('plugins.nvim-cmp')
