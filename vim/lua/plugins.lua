@@ -35,3 +35,5 @@ map('n', '<LocalLeader>r', '<cmd>lua require("renamer").rename()<cr>', opts)
 require('nx').setup()
 
 require('monorepo').setup()
+
+require('trouble').setup()

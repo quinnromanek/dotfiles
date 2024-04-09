@@ -61,6 +61,7 @@ Plug 'folke/which-key.nvim'
 " Formatting / Linting
 Plug 'mhartington/formatter.nvim'
 Plug 'mfussenegger/nvim-lint'
+Plug 'folke/trouble.nvim'
 
 " Execution
 Plug 'vim-test/vim-test'

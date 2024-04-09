@@ -7,3 +7,9 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
     require("lint").try_lint()
   end,
 })
+
+vim.api.nvim_create_autocmd({ "BufRead" }, {
+  callback = function()
+    require("lint").try_lint()
+  end,
+})
