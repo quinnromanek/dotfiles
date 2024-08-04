@@ -25,14 +25,13 @@ Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'tpope/vim-repeat'
 Plug 'svermeulen/vim-easyclip'
 Plug 'tpope/vim-surround'
-Plug 'vim-scripts/taglist.vim'
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'honza/vim-snippets'
 " Search/Navigation
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'nvim-telescope/telescope.nvim'
-Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release' }
 Plug 'elianiva/telescope-npm.nvim'
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
 Plug 'kyazdani42/nvim-tree.lua'
@@ -67,6 +66,7 @@ Plug 'haydenmeade/neotest-jest'
 Plug 'olimorris/neotest-rspec'
 Plug 'marilari88/neotest-vitest'
 Plug 'nvim-neotest/neotest-vim-test'
+Plug 'nvim-neotest/nvim-nio'
 Plug 'nvim-neotest/neotest'
 
 " Code completion
@@ -98,7 +98,7 @@ Plug 'mhartington/oceanic-next'
 Plug 'ryanoasis/vim-devicons'
 
 " External - Github
-Plug 'pwntester/octo.nvim'
+" Plug 'pwntester/octo.nvim'
 Plug 'ldelossa/litee.nvim'
 Plug 'ldelossa/gh.nvim'
 

@@ -18,7 +18,7 @@ require('plugins.which-key')
 local map = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
 -- One liners - move to their own file if we ever add config
-require('octo').setup()
+-- require('octo').setup()
 vim.api.nvim_set_keymap("n", "<LocalLeader>oc", ":Octo pr create<CR>", {noremap=true, silent=true})
 vim.api.nvim_set_keymap("n", "<LocalLeader>ob", ":Octo pr browser<CR>", {noremap=true, silent=true})
 
