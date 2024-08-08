@@ -1,0 +1,12 @@
+keybinds {
+  normal clear-defaults=true {
+    bind "Ctrl a" { SwitchToMode "tmux"; }
+  }
+  tmux {
+    bind "v" { NewPane "Right"; }
+    bind "s" { NewPane "Down"; }
+  }
+}
+pane_frames false
+theme "tokyo-night"
+default_layout "compact"
