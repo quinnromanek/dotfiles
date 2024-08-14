@@ -5,8 +5,12 @@ keybinds {
   tmux {
     bind "v" { NewPane "Right"; }
     bind "s" { NewPane "Down"; }
+    bind "e" { EditScrollback; }
   }
+}
+env {
+  EDITOR "hx";
 }
 pane_frames false
 theme "tokyo-night"
-default_layout "compact"
+default_layout "slanted"
