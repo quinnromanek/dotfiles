@@ -105,6 +105,7 @@ alias vim="nvim"
 export PATH="/usr/lib/postgresql/12/bin:$PATH"
 export PATH="/home/quinn/.local/bin:$PATH"
 export PATH="/home/quinn/.npm-global/bin:$PATH"
+export PATH="/home/quinn/.cargo/bin:$PATH"
 export PGDATA="/etc/postgresql/12/main"
 export PGPORT=5432
 export KUBECONFIG=/home/quinn/kubeconfig
