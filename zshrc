@@ -1,14 +1,11 @@
-# If you come from bash you might have to change your $PATH.
-export GOPATH="$HOME/SideProjects/"
-export PATH=$HOME/Lib/oclint-0.13.1/bin:$PATH:$GOPATH/bin:/usr/local/go/bin
 
 # Path to your oh-my-zsh installation.
-  export ZSH=/home/quinn/.oh-my-zsh
+  export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+ZSH_THEME="quinn"
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
@@ -63,6 +60,11 @@ plugins=(
   git
   tmux
   asdf
+  aws
+  rbenv
+  nvm
+  zsh-aws-vault
+  tmuxinator
   kubectl
   terraform
 )
@@ -103,12 +105,12 @@ alias gd="git diff"
 alias ks="kubectl"
 alias vim="nvim"
 export PATH="/usr/lib/postgresql/12/bin:$PATH"
-export PATH="/home/quinn/.local/bin:$PATH"
-export PATH="/home/quinn/.npm-global/bin:$PATH"
-export PATH="/home/quinn/.cargo/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.npm-global/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
 export PGDATA="/etc/postgresql/12/main"
 export PGPORT=5432
-export KUBECONFIG=/home/quinn/kubeconfig
+# export KUBECONFIG=/home/quinn/kubeconfig
 export PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig
 
 # Allow Yazi to configure cwd: https://yazi-rs.github.io/docs/quick-start
@@ -135,11 +137,37 @@ function zs() {
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/quinn/Lib/google-cloud-sdk/path.zsh.inc' ]; then . '/home/quinn/Lib/google-cloud-sdk/path.zsh.inc'; fi
+function cr() {
+  (
+    cd $(git rev-parse --show-toplevel)
+  )
+}
 
-# The next line enables shell command completion for gcloud.
-if [ -f '/home/quinn/Lib/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/quinn/Lib/google-cloud-sdk/completion.zsh.inc'; fi
+function lg() {
+  lazygit
+}
+
 
 autoload -U +X bashcompinit && bashcompinit
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+[ -f /home/linuxbrew ] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+## Arcadia Only
+export AWS_SESSION_TOKEN_TTL=12h
+export AWS_CHAINED_SESSION_TOKEN_TTL=12h
+export AWS_ASSUME_ROLE_TTL=12h
+export AWS_FEDERATION_TOKEN_TTL=12h
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+export DISABLE_SPRING=true
+
+
+eval "$(rbenv init -)"
+alias vim=nvim
+
+function stax() {
+  (
+    cd $(git rev-parse --show-toplevel)/ops;
+    bundle exec stax "$@"
+  )
+}
+
+eval "$(ax --completion-script-zsh)"
