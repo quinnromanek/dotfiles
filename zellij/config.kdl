@@ -6,7 +6,24 @@ keybinds {
     bind "v" { NewPane "Right"; }
     bind "s" { NewPane "Down"; }
     bind "e" { EditScrollback; }
+    bind "y" {
+        LaunchOrFocusPlugin "file:~/room.wasm" {
+            floating true
+            ignore_case true
+            quick_jump true
+        };
+        SwitchToMode "normal";
+    }
   }
+  shared_except "locked" {
+    bind "Ctrl y" {
+        LaunchOrFocusPlugin "https://github.com/rvcas/room/releases/latest/download/room.wasm" {
+            floating true
+            ignore_case true
+            quick_jump true
+        }
+    }
+}
 }
 env {
   EDITOR "hx";
