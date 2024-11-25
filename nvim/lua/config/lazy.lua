@@ -21,6 +21,12 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 vim.keymap.set("i", "jk", "<Esc>")
+vim.opt.number = true
+
+local TAB_WIDTH = 2
+vim.opt.tabstop = TAB_WIDTH
+vim.opt.shiftwidth = TAB_WIDTH
+vim.opt.expandtab = true
 
 -- Setup lazy.nvim
 require("lazy").setup({

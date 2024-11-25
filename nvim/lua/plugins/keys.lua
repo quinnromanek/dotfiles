@@ -9,5 +9,15 @@ return {
       end,
       desc = "Buffer Local Keymaps (which-key)",
     },
+    {
+      "gl",
+      "<C-\\><C-n><C-w>l",
+      desc = "Move to right pane",
+    },
+    {
+      "gh",
+      "<C-\\><C-n><C-w>h",
+      desc = "Move to left pane",
+    }
   },
 }
