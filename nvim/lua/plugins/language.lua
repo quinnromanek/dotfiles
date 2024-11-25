@@ -57,7 +57,7 @@ return {
       })
     end
   },
-
+  -- For code action quickfix window
   {
     'luckasRanarison/clear-action.nvim',
     opts = {
