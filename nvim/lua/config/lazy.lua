@@ -21,6 +21,7 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 vim.keymap.set("i", "jk", "<Esc>")
+vim.keymap.set({"n", "v"}, "<leader>Y", '"+y"')
 vim.opt.number = true
 
 local TAB_WIDTH = 2
