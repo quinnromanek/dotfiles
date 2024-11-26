@@ -37,12 +37,10 @@ require("lazy").setup({
   },
   -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins.
-  install = { colorscheme = { "catppuccin" } },
+  install = { colorscheme = { "everforest" } },
   -- automatically check for plugin updates
   checker = { enabled = true, notify = false },
 })
-
-vim.cmd.colorscheme "catppuccin"
 
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
