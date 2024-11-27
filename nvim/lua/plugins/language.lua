@@ -6,14 +6,14 @@ return {
     build = function()
         require("nvim-treesitter.install").update({ with_sync = true })()
     end,
-    config = function () 
+    config = function ()
       local configs = require("nvim-treesitter.configs")
 
       configs.setup({
           ensure_installed = ensure.treesitter,
           sync_install = false,
           highlight = { enable = true },
-          indent = { enable = true },  
+          indent = { enable = true },
         })
     end,
     keys = {
@@ -127,6 +127,8 @@ return {
             require('lspconfig')[server_name].setup({})
           end,
         }
+      })
+      require('lspconfig').rust_analyzer.setup({
       })
     end
   }

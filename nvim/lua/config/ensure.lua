@@ -1,9 +1,9 @@
 return {
   -- Treesitter grammars
   treesitter = {
-    "lua", 
-    "vim", 
-    "vimdoc", 
+    "lua",
+    "vim",
+    "vimdoc",
     "javascript",
     "typescript",
     "ruby",
@@ -15,6 +15,8 @@ return {
     "stylua",
     "shfmt",
     "typescript-language-server",
+    "lua-language-server",
     "solargraph"
+    -- rust_analyzer is set up separately
   }
 }

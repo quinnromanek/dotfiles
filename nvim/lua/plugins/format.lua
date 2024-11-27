@@ -63,6 +63,9 @@ return {
           ruby = {
             require("formatter.filetypes.ruby").rubocop
           },
+          rust = {
+            require("formatter.filetypes.rust").rustfmt
+          },
           -- Use the special "*" filetype for defining formatter configurations on
           -- any filetype
           ["*"] = {
@@ -71,7 +74,7 @@ return {
             require("formatter.filetypes.any").remove_trailing_whitespace
           }
         }
-      }    
+      }
     end
   },
   -- Autopairs
