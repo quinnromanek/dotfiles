@@ -18,6 +18,16 @@ return {
       "gh",
       "<C-\\><C-n><C-w>h",
       desc = "Move to left pane",
+    },
+    {
+      "gj",
+      "<C-\\><C-n><C-w>j",
+      desc = "Move to lower pane",
+    },
+    {
+      "gk",
+      "<C-\\><C-n><C-w>k",
+      desc = "Move to upper pane",
     }
   },
 }

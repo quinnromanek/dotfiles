@@ -2,6 +2,9 @@ local ensure = require('..config.ensure')
 return {
   {
     "nvim-treesitter/nvim-treesitter",
+    dependencies = {
+      "RRethy/nvim-treesitter-endwise"
+    },
     lazy = false,
     build = function()
         require("nvim-treesitter.install").update({ with_sync = true })()
@@ -14,6 +17,7 @@ return {
           sync_install = false,
           highlight = { enable = true },
           indent = { enable = true },
+          endwise = { enable = true },
         })
     end,
     keys = {
@@ -115,6 +119,8 @@ return {
           vim.keymap.set('n', '<leader>d', '<cmd>Telescope diagnostics<cr>', opts)
           vim.keymap.set('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
           vim.keymap.set({'n', 'x'}, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
+          vim.keymap.set('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>', opts)
+          vim.keymap.set('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>', opts)
         end,
       })
 

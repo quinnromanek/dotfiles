@@ -3,9 +3,10 @@ return {
     'nvim-telescope/telescope.nvim', tag = '0.1.8',
     dependencies = {
       { 'nvim-lua/plenary.nvim' },
-      { 'nvim-telescope/telescope-live-grep-args.nvim' }
+      { 'nvim-telescope/telescope-live-grep-args.nvim' },
+      { 'smartpde/telescope-recent-files' }
     },
-    config = function() 
+    config = function()
       require('telescope').setup({
         defaults = {
           mappings = {
@@ -17,6 +18,7 @@ return {
       })
 
       require('telescope').load_extension('live_grep_args')
+      require('telescope').load_extension('recent_files')
     end,
     keys = {
       { "<leader>f", "<cmd>Telescope find_files<cr>", desc = "Find files"},
@@ -24,7 +26,10 @@ return {
       { "<leader>g", "<cmd>Telescope git_status<cr>", desc = "Find files"},
       { "<leader>/", function()
         require('telescope').extensions.live_grep_args.live_grep_args()
-      end, desc = "Find files"}
+      end, desc = "Find files"},
+      { "<leader>r", function()
+        require('telescope').extensions.recent_files.pick()
+      end, desc = "Find recent files"}
     }
   },
   {

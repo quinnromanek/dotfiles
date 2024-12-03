@@ -1,7 +1,7 @@
 return {
   {
     'ggandor/leap.nvim',
-    config = function() 
+    config = function()
       require('leap').create_default_mappings()
     end
   },
@@ -22,5 +22,9 @@ return {
     keys = {
       { 'gw', '<cmd>HopWord<cr>', desc = "Hop"}
     }
+  },
+  {
+    'romainl/vim-cool',
+    lazy = false,
   }
 }
