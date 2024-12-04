@@ -3,7 +3,8 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     dependencies = {
-      "RRethy/nvim-treesitter-endwise"
+      "RRethy/nvim-treesitter-endwise",
+      "nvim-treesitter/nvim-treesitter-textobjects"
     },
     lazy = false,
     build = function()
@@ -13,12 +14,30 @@ return {
       local configs = require("nvim-treesitter.configs")
 
       configs.setup({
-          ensure_installed = ensure.treesitter,
-          sync_install = false,
-          highlight = { enable = true },
-          indent = { enable = true },
-          endwise = { enable = true },
-        })
+        ensure_installed = ensure.treesitter,
+        sync_install = false,
+        highlight = { enable = true },
+        indent = { enable = true },
+        endwise = { enable = true },
+        textobjects = {
+          select = {
+            enable = true,
+            lookahead = true,
+            keymaps = {
+              ["af"] = "@function.outer",
+              ["if"] = "@function.inner",
+              ["al"] = "@loop.outer",
+              ["il"] = "@loop.inner",
+              ["ac"] = "@class.outer",
+              -- You can optionally set descriptions to the mappings (used in the desc parameter of
+              -- nvim_buf_set_keymap) which plugins like which-key display
+              ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
+              -- You can also use captures from other query groups like `locals.scm`
+              ["as"] = { query = "@local.scope", query_group = "locals", desc = "Select language scope" },
+            }
+          }
+        }
+      })
     end,
     keys = {
       { "<c-space>", desc = "Increment Selection" },
@@ -82,6 +101,14 @@ return {
       {'hrsh7th/cmp-nvim-lsp'},
       {'williamboman/mason.nvim'},
       {'williamboman/mason-lspconfig.nvim'},
+      {
+        "SmiteshP/nvim-navbuddy",
+        dependencies = {
+            "SmiteshP/nvim-navic",
+            "MunifTanjim/nui.nvim"
+        },
+        opts = { lsp = { auto_attach = true } }
+      }
     },
     init = function()
       -- Reserve a space in the gutter
@@ -121,6 +148,7 @@ return {
           vim.keymap.set({'n', 'x'}, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
           vim.keymap.set('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>', opts)
           vim.keymap.set('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>', opts)
+          vim.keymap.set('n', '<leader>n', '<cmd>lua require("nvim-navbuddy").open()<cr>', opts)
         end,
       })
 

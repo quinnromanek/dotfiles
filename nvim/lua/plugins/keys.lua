@@ -10,6 +10,11 @@ return {
       desc = "Buffer Local Keymaps (which-key)",
     },
     {
+      "<localleader>s",
+      "<cmd>w<cr>",
+      desc = "Save",
+    },
+    {
       "gl",
       "<C-\\><C-n><C-w>l",
       desc = "Move to right pane",
