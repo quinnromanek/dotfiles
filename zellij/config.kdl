@@ -26,7 +26,7 @@ keybinds {
 }
 }
 env {
-  EDITOR "hx";
+  EDITOR "nvim";
 }
 pane_frames false
 theme "tokyo-night"

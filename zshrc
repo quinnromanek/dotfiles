@@ -59,15 +59,11 @@ ENABLE_CORRECTION="true"
 NVM_AUTOLOAD=1
 plugins=(
   git
-  tmux
   asdf
   aws
-  rbenv
-  nvm
-  zsh-aws-vault
-  tmuxinator
   kubectl
   terraform
+  virtualenv
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -85,7 +81,7 @@ source $ZSH/oh-my-zsh.sh
 # else
 #   export EDITOR='mvim'
 # fi
-export EDITOR='hx'
+export EDITOR='nvim'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -148,10 +144,14 @@ function lg() {
   lazygit
 }
 
+function db() {
+  lazysql
+}
+
 
 autoload -U +X bashcompinit && bashcompinit
 [ -f /home/linuxbrew ] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-
+eval "$(/opt/homebrew/bin/brew shellenv)"
 export OLLAMA_API_BASE=http://127.0.0.1:11434
 
 zellij_tab_name_update() {
@@ -176,24 +176,50 @@ zellij_tab_name_update() {
 zellij_tab_name_update
 chpwd_functions+=(zellij_tab_name_update)
 
+# =============================
+# Added via mac_setup.sh:
 
-## Arcadia Only
-export AWS_SESSION_TOKEN_TTL=12h
-export AWS_CHAINED_SESSION_TOKEN_TTL=12h
-export AWS_ASSUME_ROLE_TTL=12h
-export AWS_FEDERATION_TOKEN_TTL=12h
-export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
-export DISABLE_SPRING=true
+# Apple Silicon-friendly Node version manager
+eval "$(fnm env --use-on-cd --version-file-strategy recursive)"
 
+# This loads zsh completions for Brew packages
+# https://docs.brew.sh/Shell-Completion
+FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+autoload -Uz compinit
+compinit
 
-eval "$(rbenv init -)"
-alias vim=nvim
+export PYCURL_SSL_LIBRARY=openssl
+export LDFLAGS="-L$(brew --prefix)/opt/openssl/lib"
+export CPPFLAGS="-I/$(brew --prefix)/opt/openssl/include"
 
-function stax() {
-  (
-    cd $(git rev-parse --show-toplevel)/ops;
-    bundle exec stax "$@"
-  )
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+export PIPENV_PYTHON="$PYENV_ROOT/shims/python"
+
+plugin=(
+  pyenv
+)
+
+function cd() {
+  builtin cd "$@"
+
+  if [[ -z "$VIRTUAL_ENV" ]] ; then
+    ## If env folder is found then activate the vitualenv
+      if [[ -d ./venv ]] ; then
+        source ./venv/bin/activate
+      fi
+  else
+    ## check the current folder belong to earlier VIRTUAL_ENV folder
+    # if yes then do nothing
+    # else deactivate
+      parentdir="$(dirname "$VIRTUAL_ENV")"
+      if [[ "$PWD"/ != "$parentdir"/* ]] ; then
+        deactivate
+      fi
+  fi
 }
 
-eval "$(ax --completion-script-zsh)"
+eval "$(pyenv init --path)"
+eval "$(pyenv init -)"
+
+# =============================

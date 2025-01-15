@@ -2,7 +2,6 @@
 
 PWD=$(pwd)
 
-ln -is $PWD/helix ~/.config/helix
 ln -is $PWD/yazi ~/.config/yazi
 ln -is $PWD/zellij ~/.config/zellij
 ln -is $PWD/nvim ~/.config/nvim
