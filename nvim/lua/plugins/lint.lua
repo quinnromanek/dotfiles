@@ -22,33 +22,25 @@ return {
         json = {
           'eslint',
         },
+        python = {
+          'ruff',
+        },
     }
 
-    -- ARCADIA
     local eslint = require("lint").linters.eslint
-    local vitest_util = require("neotest-vitest.util")
 
     local binary_name = "eslint"
 
-    eslint.args = {
-        '--config',
-        function()
-          if vim.fn.getcwd() == "/Users/quinn.romanek/code/cs" then
-            local path = vim.api.nvim_buf_get_name(0)
-            local package_path = vitest_util.find_package_json_ancestor(path)
-            local package = string.gsub(package_path, "/Users/quinn.romanek/code/cs/", "")
-            return package .. "/.eslintrc.json"
-          else
-            return ''
-          end
-        end,
-        '--format',
-        'json',
-        '--stdin',
-        '--stdin-filename',
-        function() return vim.api.nvim_buf_get_name(0) end,
-    }    
-    
+    eslint.cmd = function()
+      if string.match(vim.fn.getcwd(), "/Users/quinnromanek/code/headway/web") then
+        -- HEADWAY
+        return "/Users/quinnromanek/code/headway/web/node_modules/.bin/eslint"
+      else
+        local local_binary = vim.fn.fnamemodify('./node_modules/.bin/' .. binary_name, ':p')
+        return vim.loop.fs_stat(local_binary) and local_binary or binary_name
+      end
+    end
+
     local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
 
     vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {

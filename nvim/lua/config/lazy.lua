@@ -22,6 +22,8 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 vim.keymap.set("i", "jk", "<Esc>")
 vim.keymap.set({"n", "v"}, "<leader>Y", '"+y"')
+vim.keymap.set({"n", "v"}, "gp", '<C-o>')
+vim.keymap.set({"n", "v"}, "gn", '<C-i>')
 vim.opt.number = true
 
 local TAB_WIDTH = 2

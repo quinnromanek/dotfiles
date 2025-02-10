@@ -16,7 +16,7 @@ return {
     "shfmt",
     "typescript-language-server",
     "lua-language-server",
-    "solargraph"
+    "solargraph",
     -- rust_analyzer is set up separately
   }
 }
