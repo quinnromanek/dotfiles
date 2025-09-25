@@ -107,7 +107,17 @@ return {
             "SmiteshP/nvim-navic",
             "MunifTanjim/nui.nvim"
         },
-        opts = { lsp = { auto_attach = true } }
+        config = function()
+          local navbuddy = require("nvim-navbuddy")
+          local actions = require("nvim-navbuddy.actions")
+          navbuddy.setup({
+            lsp = { auto_attach = true },
+            size = "80%",
+            mappings = {
+              ["C-c"] = actions.close(),
+            }
+          })
+        end,
       }
     },
     init = function()
@@ -152,6 +162,26 @@ return {
         end,
       })
 
+      require('lspconfig').pyre.setup({})
+      require('lspconfig').basedpyright.setup({
+        settings = {
+          basedpyright = {
+            analysis = {
+              typeCheckingMode = "off"
+            }
+          },
+        }
+      })
+      -- require('lspconfig').pyright.setup({
+      --   settings = {
+      --     python = {
+      --       analysis = {
+      --          typeCheckingMode = "off"
+      --       }
+      --     }
+      --   }
+      -- })
+
       require('mason-lspconfig').setup({
         ensure_installed = {},
         handlers = {
@@ -162,8 +192,7 @@ return {
           end,
         }
       })
-      require('lspconfig').rust_analyzer.setup({
-      })
+      require('lspconfig').rust_analyzer.setup({ })
     end
   }
 }

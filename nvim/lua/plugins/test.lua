@@ -15,6 +15,7 @@ return {
 
     -- Test Runners
     'nvim-neotest/neotest-vim-test',
+    'nvim-neotest/neotest-python',
     'marilari88/neotest-vitest',
     'nvim-neotest/neotest-jest',
     'olimorris/neotest-rspec'
@@ -22,14 +23,30 @@ return {
   keys = {
     { '<localleader>t', run_test, desc = "Run Test" }
   },
-  config = function() 
+  config = function()
     local neotest = require('neotest')
 
     neotest.setup({
       adapters = {
         require('neotest-jest')({
-          jestCommand = "npm test --"
+          jestCommand = "yarn exec jest --env=jsdom",
+          jestConfigFile = function(file)
+            if string.find(file, "/headway/web") then
+              return string.match(file, "(.-/headway/web/[^/]+/[^/]+/)") .. "jest.config.js"
+            end
+
+            return vim.fn.getcwd() .. "/jest.config.js"
+          end,
+          cwd = function(file)
+            if string.find(file, "/headway/web") then
+              local cf = string.match(file, "(.-/headway/web/[^/]+/[^/]+/)")
+              return cf
+            end
+
+            return vim.fn.getcwd()
+          end,
         }),
+        require('neotest-python')({}),
         require('neotest-rspec'),
         -- require('neotest-vitest')({
           -- ARCADIA

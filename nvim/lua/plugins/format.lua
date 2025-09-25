@@ -8,9 +8,11 @@ return {
 
       function prettier(parser)
         local exe = "prettier"
-        -- ARCADIA
-        if string.match(util.get_current_buffer_file_path(), "/Users/quinn.romanek/code/cs") then
-          exe = "pnpm prettier"
+        local try_node_modules = true
+        -- HEADWAY
+        if string.match(util.get_current_buffer_file_path(), "/Users/quinnromanek/code/headway/web") then
+          exe = "/Users/quinnromanek/code/headway/web/node_modules/.bin/prettier"
+          try_node_modules = false
         end
         if not parser then
           return {
@@ -20,7 +22,7 @@ return {
               util.escape_path(util.get_current_buffer_file_path()),
             },
             stdin = true,
-            try_node_modules = true,
+            try_node_modules = try_node_modules,
           }
         end
 
@@ -33,7 +35,7 @@ return {
             parser,
           },
           stdin = true,
-          try_node_modules = true,
+          try_node_modules = try_node_modules,
         }
       end
 
@@ -65,6 +67,9 @@ return {
           },
           rust = {
             require("formatter.filetypes.rust").rustfmt
+          },
+          python = {
+            require("formatter.filetypes.python").ruff
           },
           -- Use the special "*" filetype for defining formatter configurations on
           -- any filetype
