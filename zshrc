@@ -5,7 +5,7 @@
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="quinn"
+ZSH_THEME="robbyrussell"
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
@@ -59,12 +59,10 @@ ENABLE_CORRECTION="true"
 NVM_AUTOLOAD=1
 plugins=(
   git
-  tmux
   asdf
   aws
   rbenv
   nvm
-  zsh-aws-vault
   tmuxinator
   kubectl
   terraform
@@ -85,7 +83,7 @@ source $ZSH/oh-my-zsh.sh
 # else
 #   export EDITOR='mvim'
 # fi
-export EDITOR='hx'
+export EDITOR='vim'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -150,7 +148,7 @@ function lg() {
 
 
 autoload -U +X bashcompinit && bashcompinit
-[ -f /home/linuxbrew ] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 export OLLAMA_API_BASE=http://127.0.0.1:11434
 
@@ -175,25 +173,3 @@ zellij_tab_name_update() {
 
 zellij_tab_name_update
 chpwd_functions+=(zellij_tab_name_update)
-
-
-## Arcadia Only
-export AWS_SESSION_TOKEN_TTL=12h
-export AWS_CHAINED_SESSION_TOKEN_TTL=12h
-export AWS_ASSUME_ROLE_TTL=12h
-export AWS_FEDERATION_TOKEN_TTL=12h
-export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
-export DISABLE_SPRING=true
-
-
-eval "$(rbenv init -)"
-alias vim=nvim
-
-function stax() {
-  (
-    cd $(git rev-parse --show-toplevel)/ops;
-    bundle exec stax "$@"
-  )
-}
-
-eval "$(ax --completion-script-zsh)"

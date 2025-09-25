@@ -1,0 +1,7 @@
+links:
+  zshrc: ~/.zshrc
+  nvim: ~/.config/nvim
+  yazi: ~/.config/yazi
+  zellij: ~/.config/zellij
+  quinn.zsh-theme: ~/.oh-my-zsh/custom/themes/quinn.zsh-theme
+

@@ -5,6 +5,8 @@ return {
     "vim",
     "vimdoc",
     "javascript",
+    "wgsl",
+    "wgsl_bevy",
     "typescript",
     "ruby",
     "rust",
