@@ -1,9 +1,4 @@
 #!/bin/bash
-
-PWD=$(pwd)
-
-ln -is $PWD/yazi ~/.config/yazi
-ln -is $PWD/zellij ~/.config/zellij
-ln -is $PWD/nvim ~/.config/nvim
-ln -is $PWD/zshrc ~/.zshrc
-ln -is $PWD/quinn.zsh-theme ~/.oh-my-zsh/custom/themes/quinn.zsh-theme
+cargo install rotz
+rotz install
+rotz link
