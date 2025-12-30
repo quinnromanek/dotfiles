@@ -56,14 +56,10 @@ ENABLE_CORRECTION="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-NVM_AUTOLOAD=1
 plugins=(
   git
-  asdf
-  aws
-  kubectl
-  terraform
-  virtualenv
+  brew
+  mise
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -101,14 +97,6 @@ alias gs="git status"
 alias gd="git diff"
 alias ks="kubectl"
 alias vim="nvim"
-export PATH="/usr/lib/postgresql/12/bin:$PATH"
-export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/.npm-global/bin:$PATH"
-export PATH="$HOME/.cargo/bin:$PATH"
-export PGDATA="/etc/postgresql/12/main"
-export PGPORT=5432
-# export KUBECONFIG=/home/quinn/kubeconfig
-export PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig
 
 # Allow Yazi to configure cwd: https://yazi-rs.github.io/docs/quick-start
 function yy() {
@@ -150,9 +138,6 @@ function db() {
 
 
 autoload -U +X bashcompinit && bashcompinit
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-
-export OLLAMA_API_BASE=http://127.0.0.1:11434
 
 zellij_tab_name_update() {
   if [[ -n $ZELLIJ ]]; then
@@ -175,3 +160,9 @@ zellij_tab_name_update() {
 
 zellij_tab_name_update
 chpwd_functions+=(zellij_tab_name_update)
+
+eval "$(/home/quinn/.local/bin/mise activate zsh)"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/home/quinn/.lmstudio/bin"
+# End of LM Studio CLI section

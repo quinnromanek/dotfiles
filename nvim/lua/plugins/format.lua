@@ -66,7 +66,13 @@ return {
             require("formatter.filetypes.ruby").rubocop
           },
           rust = {
-            require("formatter.filetypes.rust").rustfmt
+            function()
+              return {
+                exe = "rustfmt",
+                args = { "--edition 2024" },
+                stdin = true,
+              }
+            end
           },
           python = {
             require("formatter.filetypes.python").ruff

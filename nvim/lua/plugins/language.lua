@@ -192,7 +192,18 @@ return {
           end,
         }
       })
-      require('lspconfig').rust_analyzer.setup({ })
+      require('lspconfig').rust_analyzer.setup({
+        settings = {
+          ['rust-analyzer'] = {
+            -- procMacro = {
+            --   enable= false
+            -- }
+
+          }
+
+
+        }
+      })
     end
   }
 }
